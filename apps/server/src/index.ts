@@ -31,5 +31,7 @@ app.get("/", (_req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`[relay] ${PROJECT_NAME} API listening on http://localhost:${port}`);
+  console.log(
+    `[relay] ${PROJECT_NAME} API listening on http://localhost:${port}`
+  );
 });

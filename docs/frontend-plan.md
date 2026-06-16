@@ -179,8 +179,8 @@ No auth on dashboard (v1). Document in UI footer: "Demo only — production woul
 
 ```typescript
 // VITE_WS_URL defaults to same host as API
-const socket = io(VITE_WS_URL, { path: '/socket.io' });
-socket.emit('join', 'ops');
+const socket = io(VITE_WS_URL, { path: "/socket.io" });
+socket.emit("join", "ops");
 ```
 
 ### Events
@@ -205,11 +205,11 @@ If WebSocket disconnects:
 
 ```typescript
 export const queryKeys = {
-  metrics: ['metrics'] as const,
-  apiKeys: ['apiKeys'] as const,
+  metrics: ["metrics"] as const,
+  apiKeys: ["apiKeys"] as const,
   notifications: (filters: NotificationFilters) =>
-    ['notifications', filters] as const,
-  notification: (id: string) => ['notification', id] as const,
+    ["notifications", filters] as const,
+  notification: (id: string) => ["notification", id] as const,
 };
 ```
 
@@ -232,11 +232,11 @@ VITE_WS_URL=http://localhost:3000
 ```typescript
 async function apiFetch(
   path: string,
-  options?: RequestInit & { apiKey?: string },
+  options?: RequestInit & { apiKey?: string }
 ) {
   const headers = new Headers(options?.headers);
   if (options?.apiKey) {
-    headers.set('Authorization', `Bearer ${options.apiKey}`);
+    headers.set("Authorization", `Bearer ${options.apiKey}`);
   }
   // ...
 }

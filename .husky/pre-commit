@@ -1,0 +1,14 @@
+echo "🏗️👷‍♂️ Formatting code with Prettier..."
+pnpm format
+
+echo "📦 Staging formatted files..."
+git add -A 
+
+echo "🔍👷‍♂️ Running linting checks..."
+pnpm lint
+
+echo "🔍👷‍♂️ Running type checks..."
+pnpm typecheck
+
+# If everything passes... Now we can commit
+echo '✅✅✅✅ Committing this now. ✅✅✅✅'
