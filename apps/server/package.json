@@ -1,0 +1,25 @@
+{
+  "name": "@relay/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "echo \"No lint configured yet\""
+  },
+  "dependencies": {
+    "@relay/shared": "workspace:*",
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.4",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}

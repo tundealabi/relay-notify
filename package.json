@@ -1,0 +1,20 @@
+{
+  "name": "relay-notify",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Async multi-channel notification engine",
+  "scripts": {
+    "build": "pnpm --filter @relay/shared build && pnpm -r --filter '!@relay/shared' build",
+    "dev": "pnpm --filter @relay/shared build && pnpm -r --parallel dev",
+    "dev:server": "pnpm --filter @relay/server dev",
+    "dev:web": "pnpm --filter @relay/web dev",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.12.1"
+}

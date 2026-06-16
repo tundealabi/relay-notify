@@ -1,0 +1,63 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background: #0f1419;
+  color: #e7ecf1;
+  line-height: 1.5;
+}
+
+.app {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+h1 {
+  margin: 0 0 0.25rem;
+  font-size: 2rem;
+}
+
+.card {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #2a3441;
+  border-radius: 8px;
+  background: #161d27;
+}
+
+.card h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  color: #9aa8b7;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ok {
+  color: #6dd58c;
+}
+
+.error {
+  color: #f07178;
+}
+
+code {
+  font-size: 0.9em;
+  background: #0f1419;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
