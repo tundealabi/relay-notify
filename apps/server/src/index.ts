@@ -1,52 +1,58 @@
 import "dotenv/config";
 
+import { randomUUID } from "node:crypto";
+
 import cors from "@fastify/cors";
 import { PROJECT_NAME } from "@relay/shared";
 import fastify from "fastify";
 
-import { prismaPlugin, redisPlugin } from "./plugins";
+import { registerSystemModule } from "./modules/system";
+import {
+  prismaPlugin,
+  redisPlugin,
+  replyDecoratorsPlugin,
+  responsePlugin,
+  swaggerPlugin,
+} from "./plugins";
+import { v1Routes } from "./routes";
 
-const app = fastify({ logger: true });
+async function start() {
+  const app = fastify({
+    logger: true,
+    genReqId: (req) => {
+      const headerValue = req.headers["x-request-id"];
+      return typeof headerValue === "string" && headerValue.length > 0
+        ? headerValue
+        : randomUUID();
+    },
+  });
 
-app.register(cors, {
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-  maxAge: 600,
-  optionsSuccessStatus: 204,
-  origin: process.env.CORS_ORIGINS?.split(",") ?? [],
-  preflightContinue: false,
-});
+  await app.register(responsePlugin);
+  await app.register(replyDecoratorsPlugin);
+  await app.register(swaggerPlugin);
 
-app.register(redisPlugin);
-app.register(prismaPlugin);
+  await app.register(cors, {
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+    maxAge: 600,
+    optionsSuccessStatus: 204,
+    origin: process.env.CORS_ORIGINS?.split(",").filter(Boolean) ?? true,
+    preflightContinue: false,
+  });
 
-const port = Number(process.env.PORT ?? 3000);
+  await app.register(redisPlugin);
+  await app.register(prismaPlugin);
 
-app.get("/health", (_req) => {
-  return { status: "ok" };
-});
+  registerSystemModule(app, PROJECT_NAME);
+  await app.register(v1Routes, { prefix: "/api/v1" });
 
-app.get("/ready", (_req) => {
-  return {
-    status: "ok",
-    postgres: false,
-    redis: false,
-    note: "Infrastructure checks will be wired in Week 1",
-  };
-});
+  const port = Number(process.env.PORT ?? 3000);
 
-app.get("/", (_req) => {
-  return {
-    name: PROJECT_NAME,
-    message: "Relay API — scaffold running",
-    docs: "/docs (coming soon)",
-  };
-});
+  await app.listen({ port });
+  app.log.info(`[relay] ${PROJECT_NAME} API listening on port ${port}`);
+}
 
-app.listen({ port }, (err, address) => {
-  if (err) {
-    app.log.error(err);
-    process.exit(1);
-  }
-  app.log.info(`[relay] ${PROJECT_NAME} API listening on ${address}`);
+start().catch((err) => {
+  console.error(err);
+  process.exit(1);
 });
