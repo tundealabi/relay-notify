@@ -17,6 +17,6 @@ export const NOTIFICATION_STATUSES = [
 export type NotificationStatus = (typeof NOTIFICATION_STATUSES)[number];
 
 export {
-  createNotificationSchema,
   type CreateNotificationInput,
+  createNotificationSchema,
 } from "./schemas/notification.js";
