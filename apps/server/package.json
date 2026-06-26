@@ -6,19 +6,25 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc -p tsconfig.json",
-    "start": "node dist/index.js",
+    "start": "node dist/src/index.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "lint": "echo \"No lint configured yet\""
+    "lint": "eslint ."
   },
   "dependencies": {
+    "@fastify/cors": "^11.2.0",
+    "@fastify/redis": "^8.0.0",
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
     "@relay/shared": "workspace:*",
-    "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "dotenv": "^17.4.2",
+    "fastify": "^5.8.5",
+    "fastify-plugin": "^6.0.0",
+    "pg": "^8.22.0"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.3",
-    "@types/node": "^24.0.4",
+    "@types/node": "^24.13.2",
+    "@types/pg": "^8.20.0",
+    "prisma": "^7.8.0",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   }
